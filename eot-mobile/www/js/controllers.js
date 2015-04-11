@@ -100,8 +100,12 @@ angular.module('eot.controllers', [])
 
     })
 
-    .controller('RatingCtrl', function ($scope, Chats) {
-        $scope.chats = Chats.all();
+    .controller('RatingCtrl', function ($scope, $http) {
+        $scope.users = [];
+
+        $http.get('http://eyes-of-time.herokuapp.com/rating/').success(function(result) {
+            $scope.users = result;
+        });
     })
 
     .controller('AccountCtrl', function ($scope) {

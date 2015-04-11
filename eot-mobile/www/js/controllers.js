@@ -108,5 +108,10 @@ angular.module('eot.controllers', [])
         });
     })
 
-    .controller('AccountCtrl', function ($scope) {
+    .controller('AccountCtrl', function ($scope, $http) {
+        $scope.user = null;
+
+        $http.get('http://eyes-of-time.herokuapp.com/profile/', {withCredentials: true}).success(function(result) {
+            $scope.user = result;
+        });
     });

@@ -16,4 +16,4 @@ class User(AbstractUser):
     def get_avatar(self):
         sa = self.social_auth.filter(provider='facebook').first()
         if sa:
-            return 'https://graph.facebook.com/%s/picture?type=large' % sa.uid
+            return 'https://graph.facebook.com/%s/picture?type=square' % sa.uid

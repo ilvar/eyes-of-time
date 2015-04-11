@@ -1,6 +1,20 @@
 <ion-view view-title="Account">
     <ion-content>
-        <ion-list>
+        <ion-list ng-show="user">
+            <ion-item>
+                <img ng-src="{{ user.avatar }}" class="avatar"/>
+            </ion-item>
+            <ion-item>
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Name" ng-model="user.name">
+            </ion-item>
+            <ion-item>
+                <button class="button button-balanced" ng-click="saveProfile()">
+                    Save
+                </button>
+            </ion-item>
+        </ion-list>
+        <ion-list ng-hide="user">
             <ion-item>
                 <a class="login button button-block button-positive"
                     href="http://eyes-of-time.herokuapp.com/accounts/login/facebook/?mobile=http%3A%2F%2Flocalhost%3A8100%2F">

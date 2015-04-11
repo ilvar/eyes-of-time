@@ -59,7 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'eot.middleware.'
+    'eot.middleware.MobileSSOMiddleware',
 )
 
 CORS_ORIGIN_ALLOW_ALL = True

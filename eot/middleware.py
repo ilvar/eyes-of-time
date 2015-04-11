@@ -9,6 +9,7 @@ class MobileSSOMiddleware(object):
 
         if request.path == '/' or request.path == '/accounts/profile/':
             mobile_url = request.session.get('mobile')
+            print 'mobile_url', mobile_url
             if mobile_url:
                 del request.session['mobile']
                 return redirect(mobile_url)

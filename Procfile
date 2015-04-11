@@ -1,1 +1,1 @@
-web: gunicorn eot.wsgi --log-file -
+web: python manage.py syncdb --noinput; gunicorn eot.wsgi --log-file -

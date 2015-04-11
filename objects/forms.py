@@ -14,7 +14,7 @@ class EventForm(forms.ModelForm):
 
     def save(self, commit=True):
         event = super(EventForm, self).save(commit=False)
-        if not event.user:
+        if not event.pk:
             event.user = self.request.user
 
         if commit:

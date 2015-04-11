@@ -25,7 +25,7 @@ SECRET_KEY = 'SUPER_SECRET'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['eyes-of-time.herokuapp.com']
 
 
 # Application definition
@@ -143,6 +143,8 @@ if 'DATABASE_URL' in os.environ:
 
     SOCIAL_AUTH_FACEBOOK_KEY = os.environ['SOCIAL_AUTH_FACEBOOK_KEY']
     SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']
+
+    DEBUG = False
 
 try:
     from local_settings import *

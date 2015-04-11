@@ -1,6 +1,6 @@
 import json
 
-from django.template.defaulttags import csrf_token
+from django.views.decorators.csrf import csrf_exempt
 
 from eot.views import JsonView
 from users.forms import ProfileForm
@@ -40,5 +40,5 @@ class ProfileView(JsonView):
         else:
             return self.render({'error': 'Data is invalid', 'errors_list': form.errors})
 
-profile = csrf_token(ProfileView.as_view())
+profile = csrf_exempt(ProfileView.as_view())
 

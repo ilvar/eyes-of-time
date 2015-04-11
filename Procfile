@@ -1,0 +1,1 @@
+web: gunicorn eot.wsgi --log-file -

@@ -4,6 +4,7 @@ from django.contrib import admin
 urlpatterns = [
     # Examples:
     url(r'^$', 'objects.views.home', name='home'),
+    url(r'^events/$', 'objects.views.events', name='events'),
 
     url(r'^accounts/', include('social.apps.django_app.urls', namespace='social')),
 

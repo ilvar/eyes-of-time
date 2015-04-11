@@ -103,15 +103,4 @@ angular.module('eot.controllers', [])
     })
 
     .controller('AccountCtrl', function ($scope) {
-        $scope.settings = {
-            enableFriends: true
-        };
-
-        $scope.loginFacebook = function() {
-            var base_login_url = '';
-            $scope.login_href = base_login_url + encodeURIComponent(top.location.href);
-        }
-
-        $scope.login_href = '';
-
     });

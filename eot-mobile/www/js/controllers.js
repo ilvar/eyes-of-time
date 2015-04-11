@@ -62,8 +62,8 @@ angular.module('eot.controllers', [])
         };
 
         $scope.saveEvent = function() {
-            var url = 'https://eyes-of-time.herokuapp.com/events/';
-            $http.post(url, $scope.newEvent).success(function(result) {
+            var url = 'http://eyes-of-time.herokuapp.com/events/';
+            $http.post(url, $scope.newEvent, {withCredentials: true}).success(function(result) {
                 if (!result.error) {
                     $scope.events = result;
                     $scope.resetEvent();

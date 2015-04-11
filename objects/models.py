@@ -4,8 +4,8 @@ from django.db import models
 class Event(models.Model):
     user = models.ForeignKey('users.User')
     description = models.CharField(max_length=140)
-    lat = models.DecimalField(max_digits=20, decimal_places=6)
-    lon = models.DecimalField(max_digits=20, decimal_places=6)
+    lat = models.DecimalField(max_digits=20, decimal_places=16)
+    lon = models.DecimalField(max_digits=20, decimal_places=16)
 
     # Ratings
     likes = models.PositiveIntegerField(default=0, editable=0)

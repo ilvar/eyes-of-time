@@ -11,7 +11,7 @@ angular.module('eot.controllers', [])
 
         $scope.resetEvent();
 
-        var map = L.map("map", {
+        $scope.map = L.map("map", {
             center: [0, 0],
             doubleClickZoom: false,
             zoom: 3,
@@ -20,7 +20,7 @@ angular.module('eot.controllers', [])
 
         var layer = L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
             attribution: 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
-            bounds: [[-85.0511287776, -179.999999975], [85.0511287776, 179.999999975]],
+            bounds: [[-90, -180], [90, 180]],
             minZoom: 1,
             maxZoom: 9,
             format: 'jpg',
@@ -28,7 +28,7 @@ angular.module('eot.controllers', [])
             tilematrixset: 'GoogleMapsCompatible_Level'
         });
 
-        map.addLayer(layer);
+        $scope.map.addLayer(layer);
 
         $scope.markers = [];
 
@@ -44,7 +44,7 @@ angular.module('eot.controllers', [])
                     var marker = L.marker(e.coordinates);
                     marker.bindPopup(e.description);
                     $scope.markers.push(marker);
-                    marker.addTo(map)
+                    marker.addTo($scope.map)
                 }
             });
         });
@@ -55,7 +55,7 @@ angular.module('eot.controllers', [])
             $scope.openModal();
         };
 
-        map.on('dblclick', $scope.onMapClick);
+        $scope.map.on('dblclick', $scope.onMapClick);
 
         $scope.openModal = function () {
             $scope.modal.show();
@@ -95,6 +95,8 @@ angular.module('eot.controllers', [])
         }).then(function (modal) {
             $scope.modal = modal;
         });
+
+        top.map = $scope.map;
 
     })
 

@@ -1,6 +1,6 @@
 angular.module('eot.controllers', [])
 
-    .controller('MapCtrl', function ($scope, $ionicModal, $http) {
+    .controller('MapCtrl', function ($scope, $ionicModal, $http, $interval) {
         $scope.resetEvent = function() {
             $scope.newEvent = {
                 lat: null,
@@ -32,13 +32,17 @@ angular.module('eot.controllers', [])
 
         $scope.markers = [];
 
-        $scope.watch('events', function() {
-            _.each($scope.events, function(e) {
+        $scope.$watch('events', function(events_list) {
+            if (!events_list) {
+                return
+            }
+            _.each(events_list, function(e) {
                 var existing_markers = _.filter($scope.markers, function(m) {
                     return m.getLatLng().lat == e.coordinates[0] && m.getLatLng().lon == e.coordinates[1];
                 });
                 if (!existing_markers.length) {
                     var marker = L.marker(e.coordinates);
+                    marker.bindPopup(e.description);
                     $scope.markers.push(marker);
                     marker.addTo(map)
                 }
@@ -61,9 +65,10 @@ angular.module('eot.controllers', [])
             $scope.modal.hide();
         };
 
+        $scope.url = 'http://eyes-of-time.herokuapp.com/events/';
+
         $scope.saveEvent = function() {
-            var url = 'http://eyes-of-time.herokuapp.com/events/';
-            $http.post(url, $scope.newEvent, {withCredentials: true}).success(function(result) {
+            $http.post($scope.url, $scope.newEvent, {withCredentials: true}).success(function(result) {
                 if (!result.error) {
                     $scope.events = result;
                     $scope.resetEvent();
@@ -71,8 +76,17 @@ angular.module('eot.controllers', [])
                 } else {
                     alert(result.error);
                 }
-            })
+            });
         };
+
+        $scope.loadEvents = function() {
+            $http.get($scope.url, {withCredentials: true}).success(function(result) {
+                $scope.events = result;
+            });
+        };
+
+        $scope.loadEvents();
+        $interval($scope.loadEvents, 60 * 1000); // 1 minute
 
         $ionicModal.fromTemplateUrl('add-modal.html', {
             scope: $scope,

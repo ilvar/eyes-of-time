@@ -152,7 +152,7 @@ if 'DATABASE_URL' in os.environ:
     SOCIAL_AUTH_FACEBOOK_KEY = os.environ['SOCIAL_AUTH_FACEBOOK_KEY']
     SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['SOCIAL_AUTH_FACEBOOK_SECRET']
 
-    # DEBUG = False
+    DEBUG = False
 
 try:
     from local_settings import *

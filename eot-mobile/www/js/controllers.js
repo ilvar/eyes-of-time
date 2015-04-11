@@ -75,6 +75,7 @@ angular.module('eot.controllers', [])
                     $scope.closeModal();
                 } else {
                     alert(result.error);
+                    alert(top.location);
                 }
             });
         };
@@ -105,4 +106,12 @@ angular.module('eot.controllers', [])
         $scope.settings = {
             enableFriends: true
         };
+
+        $scope.loginFacebook = function() {
+            var base_login_url = '';
+            $scope.login_href = base_login_url + encodeURIComponent(top.location.href);
+        }
+
+        $scope.login_href = '';
+
     });

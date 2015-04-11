@@ -58,10 +58,14 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    'eot.middleware.'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/?logged=1'
 
 ROOT_URLCONF = 'eot.urls'
 

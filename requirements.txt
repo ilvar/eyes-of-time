@@ -1,4 +1,5 @@
 Django==1.8
+django-cors-headers
 django-postgrespool==0.3.0
 django-toolbelt==0.0.1
 gunicorn==19.3.0

@@ -1,0 +1,34 @@
+<ion-view view-title="Map">
+    <ion-content>
+        <div id="map"></div>
+    </ion-content>
+</ion-view>
+
+<script id="add-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-positive">
+            <h1 class="title">New Event</h1>
+        </ion-header-bar>
+        <ion-content>
+            <form>
+                <input type="text" name="lat" ng-value="newEvent.lat">
+                <input type="text" name="lon" ng-value="newEvent.lon">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <span class="input-label">Description</span>
+                        <input type="text" placeholder="Description" ng-model="newEvent.description">
+                    </label>
+                </div>
+                <div class="padding">
+                    <button class="button button-balanced" ng-click="saveEvent()">
+                        <i class="icon ion-plus"></i>
+                        Add
+                    </button>
+                    <button class="button button-light" ng-click="closeModal()">
+                        Close
+                    </button>
+                </div>
+            </form>
+        </ion-content>
+    </ion-modal-view>
+</script>

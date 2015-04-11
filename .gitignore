@@ -5,6 +5,10 @@
 *.sqlite3
 local_settings.py
 
+eot-mobile/node_modules/
+eot-mobile/platforms/
+eot-mobile/plugins/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

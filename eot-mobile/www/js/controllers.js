@@ -67,6 +67,7 @@ angular.module('eot.controllers', [])
                 if (!result.error) {
                     $scope.events = result;
                     $scope.resetEvent();
+                    $scope.closeModal();
                 } else {
                     alert(result.error);
                 }

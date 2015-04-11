@@ -26,7 +26,7 @@ class EventsList(JsonView):
         data = [{
             'user': unicode(event.user),
             'description': event.description,
-            'coordinates': [event.lat, event.lon]
+            'coordinates': map(float, [event.lat, event.lon])
         } for event in events_qs[:100]]
         return self.render(data)
 

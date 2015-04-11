@@ -117,7 +117,7 @@ angular.module('eot.controllers', [])
         });
 
         $scope.saveProfile = function() {
-            $http.post($scope.url, $scope.newEvent, {withCredentials: true}).success(function(result) {
+            $http.post($scope.url, $scope.user, {withCredentials: true}).success(function(result) {
                 if (!result.error) {
                     $scope.user = result;
                 } else {

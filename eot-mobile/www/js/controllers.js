@@ -75,7 +75,6 @@ angular.module('eot.controllers', [])
                     $scope.closeModal();
                 } else {
                     alert(result.error);
-                    alert(top.location);
                 }
             });
         };
@@ -111,7 +110,20 @@ angular.module('eot.controllers', [])
     .controller('AccountCtrl', function ($scope, $http) {
         $scope.user = null;
 
-        $http.get('http://eyes-of-time.herokuapp.com/profile/', {withCredentials: true}).success(function(result) {
+        $scope.url = 'http://eyes-of-time.herokuapp.com/profile/';
+
+        $http.get($scope.url, {withCredentials: true}).success(function(result) {
             $scope.user = result;
         });
+
+        $scope.saveProfile = function() {
+            $http.post($scope.url, $scope.newEvent, {withCredentials: true}).success(function(result) {
+                if (!result.error) {
+                    $scope.user = result;
+                } else {
+                    alert(result.error);
+                }
+            });
+        };
+
     });

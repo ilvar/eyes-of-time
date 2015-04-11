@@ -133,6 +133,12 @@ SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 SITE_ID = 1
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 if 'DATABASE_URL' in os.environ:
     import dj_database_url
 

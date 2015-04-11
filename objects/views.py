@@ -1,8 +1,8 @@
 import json
 
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView
+from eot.views import JsonView
 from objects.forms import EventForm
 
 from objects.models import Event
@@ -12,12 +12,6 @@ class HomeView(TemplateView):
     template_name = 'home.html'
 
 home = HomeView.as_view()
-
-
-class JsonView(View):
-    @staticmethod
-    def render(data):
-        return JsonResponse(data, safe=False)
 
 
 class EventsList(JsonView):

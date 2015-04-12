@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{% static "css/eyes-of-space.css" %}">
 {% endblock %}
 
-{% block body_attrs %} ng-app="eyesoftimeApp"{% endblock %}
+{% block body_attrs %} ng-app="eyesoftimeApp" ng-controller="FindingListController"{% endblock %}
 {% block content %}
   <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -26,6 +26,7 @@
       <div class="navbar-collapse collapse">
         <!--uSER DATA -->
         <ul class="nav navbar-nav pull-right">
+          <li class="rating"><h4>My Rating: <span ng-bind="rating"></span></h4></li>
           <li class="dropdown">
             <a class="dropdown-toggle user-photo-button" id="userDrop" href="#" role="button"
                data-toggle="dropdown">
@@ -46,7 +47,7 @@
     </div>
   </div>
 
-  <div ng-controller="FindingListController" id="container">
+  <div id="container">
     <div id="sidebar">
       <div class="sidebar-wrapper">
         <div class="panel panel-default" id="features">
@@ -59,7 +60,7 @@
           <div class="panel-body">
             <div class="row event-activity">
               <ul class="unstyled">
-                <li ng-repeat="event in events" ng-click="toggleModal()">
+                <li ng-repeat="event in events">
                   <div class="author">
                     <img ng-src="[[event.avatar]]"/>
                   </div>

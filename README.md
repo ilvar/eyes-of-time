@@ -16,6 +16,12 @@ Main idea is to motivate users not only to share their findings, but also to spe
 
 To improve coverage we're planning to add proper sharing of findings (and also interesting places found by others), but it needs some additional work, and we've decided to polish what we have first.
 
+Links
+-----
+
+[Web UI](http://eyes-of-time.herokuapp.com/)
+[SpaceApps presentation](http://slides.com/arcadychumachenko/eyes-of-time#/)
+
 TODO
 ----
 * User location (`map.locate()`) - IMPORTANT
@@ -30,3 +36,4 @@ TODO
 * Publishing Android app
 * Tagging
 * Caching tiles https://github.com/gregallensworth/L.TileLayer.Cordova
+* Readme on "how to run"

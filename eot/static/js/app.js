@@ -109,6 +109,7 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
     $scope.newEvent.lat = event.latlng.lat;
     $scope.newEvent.lon = event.latlng.lng;
     $scope.toggleModal();
+    $scope.$apply();
   };
 
 
@@ -154,7 +155,7 @@ eyesoftimeApp.directive('modal', function () {
       '</div>' +
       '</div>' +
       '</div>',
-    restrict: 'E',
+    restrict: 'EA',
     transclude: true,
     replace: true,
     scope: true,

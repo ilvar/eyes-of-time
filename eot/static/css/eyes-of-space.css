@@ -68,6 +68,7 @@ body {
 
 
 #sidebar {
+    overflow:auto;
     width: 450px;
     height: 100%;
     max-width: 100%;

@@ -20,6 +20,7 @@ class UserDataMixin:
             'rating': user.rating,
         }
 
+
 class LoginView(TemplateView):
     """
     View for authenticating users
@@ -36,6 +37,7 @@ def logout(request):
     """
     auth_logout(request)
     return redirect(reverse('login'))
+
 
 class RatingList(UserDataMixin, JsonView):
     def get(self, *args, **kwargs):

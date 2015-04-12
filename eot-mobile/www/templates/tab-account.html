@@ -1,6 +1,7 @@
 <ion-view view-title="Account">
     <ion-content>
-        <ion-list ng-show="user">
+        <ion-refresher pulling-text="Pull to refresh..."  on-refresh="refreshProfile()"></ion-refresher>
+        <ion-list ng-show="user.pk">
             <ion-item class="item-avatar item-icon-right">
                 <img ng-src="{{ user.avatar }}" class="avatar"/>
                 <p>
@@ -18,7 +19,7 @@
                 </button>
             </ion-item>
         </ion-list>
-        <ion-list ng-hide="user">
+        <ion-list ng-hide="user.pk">
             <ion-item>
                 <a class="login button button-block button-positive"
                     href="http://eyes-of-time.herokuapp.com/accounts/login/facebook/?mobile=http%3A%2F%2Flocalhost%3A8100%2F">

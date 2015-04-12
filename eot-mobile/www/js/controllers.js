@@ -97,6 +97,8 @@ angular.module('eot.controllers', [])
 
         top.map = $scope.map;
 
+        $scope.map.locate({setView: true, maxZoom: 6});
+
     })
 
     .controller('RatingCtrl', function ($scope, $http, $interval) {
@@ -115,12 +117,18 @@ angular.module('eot.controllers', [])
 
     .controller('AccountCtrl', function ($scope, $http, $interval) {
         $scope.user = null;
+        $scope.allowRefresh = true;
 
         $scope.url = 'http://eyes-of-time.herokuapp.com/profile/';
 
         $scope.refreshProfile = function() {
+            if (!$scope.allowRefresh) {
+                $scope.$broadcast('scroll.refreshComplete');
+                return null;
+            }
             $http.get($scope.url, {withCredentials: true}).success(function(result) {
                 $scope.user = result;
+                $scope.$broadcast('scroll.refreshComplete');
             });
         };
 
@@ -131,10 +139,17 @@ angular.module('eot.controllers', [])
             $http.post($scope.url, $scope.user, {withCredentials: true}).success(function(result) {
                 if (!result.error) {
                     $scope.user = result;
+                    $scope.allowRefresh = true;
                 } else {
                     alert(result.error);
                 }
             });
         };
+
+        $scope.$watch('user.name', function(newValue, oldValue) {
+            if (newValue && oldValue) {
+                $scope.allowRefresh = false;
+            }
+        });
 
     });

@@ -10,6 +10,7 @@ from users.models import User
 class UserDataMixin:
     def get_user_data(self, user):
         return {
+            'pk': user.pk,
             'name': user.get_full_name(),
             'avatar': user.get_avatar(),
             'rating': user.rating,

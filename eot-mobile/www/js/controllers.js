@@ -97,33 +97,59 @@ angular.module('eot.controllers', [])
 
         top.map = $scope.map;
 
+        $scope.map.locate({setView: true, maxZoom: 6});
+
     })
 
-    .controller('RatingCtrl', function ($scope, $http) {
+    .controller('RatingCtrl', function ($scope, $http, $interval) {
         $scope.users = [];
 
-        $http.get('http://eyes-of-time.herokuapp.com/rating/').success(function(result) {
-            $scope.users = result;
-        });
+        $scope.refreshRating = function() {
+            $http.get('http://eyes-of-time.herokuapp.com/rating/').success(function (result) {
+                $scope.users = result;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
+        $scope.refreshRating();
+        $interval($scope.refreshRating, 60 * 1000); // 1 minute
     })
 
-    .controller('AccountCtrl', function ($scope, $http) {
+    .controller('AccountCtrl', function ($scope, $http, $interval) {
         $scope.user = null;
+        $scope.allowRefresh = true;
 
         $scope.url = 'http://eyes-of-time.herokuapp.com/profile/';
 
-        $http.get($scope.url, {withCredentials: true}).success(function(result) {
-            $scope.user = result;
-        });
+        $scope.refreshProfile = function() {
+            if (!$scope.allowRefresh) {
+                $scope.$broadcast('scroll.refreshComplete');
+                return null;
+            }
+            $http.get($scope.url, {withCredentials: true}).success(function(result) {
+                $scope.user = result;
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
+        $scope.refreshProfile();
+        $interval($scope.refreshProfile, 5 * 60 * 1000); // 5 minutes
 
         $scope.saveProfile = function() {
             $http.post($scope.url, $scope.user, {withCredentials: true}).success(function(result) {
                 if (!result.error) {
                     $scope.user = result;
+                    $scope.allowRefresh = true;
                 } else {
                     alert(result.error);
                 }
             });
         };
+
+        $scope.$watch('user.name', function(newValue, oldValue) {
+            if (newValue && oldValue) {
+                $scope.allowRefresh = false;
+            }
+        });
 
     });

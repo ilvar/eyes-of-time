@@ -11,6 +11,15 @@ from users.forms import ProfileForm
 from users.models import User
 
 
+class UserDataMixin:
+    def get_user_data(self, user):
+        return {
+            'pk': user.pk,
+            'name': user.get_full_name(),
+            'avatar': user.get_avatar(),
+            'rating': user.rating,
+        }
+
 class LoginView(TemplateView):
     """
     View for authenticating users
@@ -28,26 +37,19 @@ def logout(request):
     auth_logout(request)
     return redirect(reverse('login'))
 
-
-class RatingList(JsonView):
+class RatingList(UserDataMixin, JsonView):
     def get(self, *args, **kwargs):
         users_qs = User.objects.all().order_by('-rating')
-        data = [{
-            'name': user.get_full_name(),
-            'avatar': user.get_avatar(),
-        } for user in users_qs[:20]]
+        data = [self.get_user_data(user) for user in users_qs[:20]]
         return self.render(data)
 
 rating = RatingList.as_view()
 
 
-class ProfileView(JsonView):
+class ProfileView(UserDataMixin, JsonView):
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
-            return self.render({
-                'name': self.request.user.get_full_name(),
-                'avatar': self.request.user.get_avatar(),
-            })
+            return self.render(self.get_user_data(self.request.user))
         else:
             return self.render({})
 
@@ -63,3 +65,4 @@ class ProfileView(JsonView):
             return self.render({'error': 'Data is invalid', 'errors_list': form.errors})
 
 profile = csrf_exempt(ProfileView.as_view())
+

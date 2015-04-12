@@ -17,3 +17,14 @@ class Like(models.Model):
     user = models.ForeignKey('users.User')
     event = models.ForeignKey(Event)
     added = models.DateTimeField(auto_now_add=True)
+
+
+@models.signals.post_save.connect
+def recount_findings(instance, created, *args, **kwargs):
+    if not created:
+        return
+
+    instance.user.findings_count = Event.objects.filter(user=instance.user).count()
+    instance.user.rating = Event.objects.filter(user=instance.user).count() # TODO: better calc
+    instance.user.save()
+

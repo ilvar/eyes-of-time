@@ -74,7 +74,7 @@ var EPSG4326 = new L.Proj.CRS(
 
 /* add points */
 L.layerJSON({
-    url: "static/js/test-data.json",
+    url: "/static/js/test-data.json",
     propertyLoc: ['lat', 'lon'],
     propertyTitle: 'description',
     minShift: Infinity,
@@ -99,7 +99,7 @@ L.layerJSON({
 var eyesoftimeApp = angular.module('eyesoftimeApp', ["leaflet-directive"])
 eyesoftimeApp.controller('FindingListController', function ($scope, $http) {
     var findingList = this;
-    $http.get('static/js/test-data.json')
+    $http.get(api_endpoint + "/events/")
         .then(function (res) {
             findingList.events = res.data;
         });

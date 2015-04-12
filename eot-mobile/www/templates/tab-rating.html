@@ -1,17 +1,10 @@
 <ion-view view-title="Rating">
     <ion-content>
         <ion-list>
-            <ion-item class="item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap">
-                <img ng-src="{{ chat.face }}">
+            <ion-item class="item-avatar item-icon-right" ng-repeat="user in users" type="item-text-wrap">
+                <img ng-src="{{ user.avatar }}">
 
-                <h2>{{ chat.name }}</h2>
-
-                <p>{{ chat.lastText }}</p>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-
-                <ion-option-button class="button-assertive" ng-click="remove(chat)">
-                    Delete
-                </ion-option-button>
+                <h2>{{ user.name }}</h2>
             </ion-item>
         </ion-list>
     </ion-content>

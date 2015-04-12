@@ -29,7 +29,7 @@
             <a class="dropdown-toggle user-photo-button" id="userDrop" href="#" role="button"
                data-toggle="dropdown">
               {% if user.is_authenticated %}
-                <img src="static/img/alien.png"/> {{ user.name }} <b class="caret"></b>
+                <img src="{{ user.get_avatar }}"/> {{ user.get_full_name }} <b class="caret"></b>
               {% endif %}
             </a>
             <ul class="dropdown-menu">
@@ -58,14 +58,13 @@
           <div class="panel-body">
             <div class="row event-activity">
               <ul class="unstyled">
-                <li ng-click="toggleModal()" ng-repeat="event in findingList.events"
-                    data-position="[{{ event.lat }},{{ event.lon }}]">
+                <li ng-click="toggleModal()" ng-repeat="event in findingList.events">
                   <div class="author">
                     <img src="static/img/alien.png">
                   </div>
-                  <div class="name">{{ event.user }}</div>
+                  <div class="name" ng-bind="event.user"></div>
                   <div class="date">Today at 1:30 PM</div>
-                  <div class="description">{{ event.description }}</div>
+                  <div class="description" ng-bind="event.description"></div>
                 </li>
               </ul>
             </div>

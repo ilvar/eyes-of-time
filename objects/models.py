@@ -19,7 +19,6 @@ class Like(models.Model):
     added = models.DateTimeField(auto_now_add=True)
 
 
-@models.signals.post_save.connect
 def recount_findings(instance, created, *args, **kwargs):
     if not created:
         return
@@ -28,3 +27,4 @@ def recount_findings(instance, created, *args, **kwargs):
     instance.user.rating = Event.objects.filter(user=instance.user).count() # TODO: better calc
     instance.user.save()
 
+models.signals.post_save.connect(recount_findings, sender=Event)

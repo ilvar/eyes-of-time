@@ -1,18 +1,16 @@
 <ion-view view-title="Account">
     <ion-content>
         <ion-list ng-show="user">
-            <ion-item>
+            <ion-item class="item-avatar item-icon-right">
                 <img ng-src="{{ user.avatar }}" class="avatar"/>
-            </ion-item>
-            <ion-item>
-                <span class="input-label">Name</span>
-                <input type="text" placeholder="Name" ng-model="user.name">
-            </ion-item>
-            <ion-item>
                 <p>
                     <strong>Rating:</strong>
                     {{ user.rating }}
                 </p>
+            </ion-item>
+            <ion-item>
+                <span class="input-label">Name</span>
+                <input type="text" placeholder="Name" ng-model="user.name">
             </ion-item>
             <ion-item>
                 <button class="button button-balanced" ng-click="saveProfile()">

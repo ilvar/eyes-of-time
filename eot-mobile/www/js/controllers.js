@@ -99,12 +99,17 @@ angular.module('eot.controllers', [])
 
     })
 
-    .controller('RatingCtrl', function ($scope, $http) {
+    .controller('RatingCtrl', function ($scope, $http, $interval) {
         $scope.users = [];
 
-        $http.get('http://eyes-of-time.herokuapp.com/rating/').success(function(result) {
-            $scope.users = result;
-        });
+        $scope.refreshRating = function() {
+            $http.get('http://eyes-of-time.herokuapp.com/rating/').success(function (result) {
+                $scope.users = result;
+            });
+        };
+
+        $scope.refreshRating();
+        $interval($scope.refreshRating, 10000); // 10 seconds
     })
 
     .controller('AccountCtrl', function ($scope, $http) {
@@ -112,9 +117,14 @@ angular.module('eot.controllers', [])
 
         $scope.url = 'http://eyes-of-time.herokuapp.com/profile/';
 
-        $http.get($scope.url, {withCredentials: true}).success(function(result) {
-            $scope.user = result;
-        });
+        $scope.refreshProfile = function() {
+            $http.get($scope.url, {withCredentials: true}).success(function(result) {
+                $scope.user = result;
+            });
+        };
+
+        $scope.refreshProfile();
+        $interval($scope.refreshProfile, 60 * 1000); // 1 minute
 
         $scope.saveProfile = function() {
             $http.post($scope.url, $scope.user, {withCredentials: true}).success(function(result) {

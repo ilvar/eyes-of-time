@@ -7,25 +7,28 @@ from users.forms import ProfileForm
 from users.models import User
 
 
-class RatingList(JsonView):
-    def get(self, *args, **kwargs):
-        users_qs = User.objects.all().order_by('-rating')
-        data = [{
+class UserDataMixin:
+    def get_user_data(self, user):
+        return {
             'name': user.get_full_name(),
             'avatar': user.get_avatar(),
-        } for user in users_qs[:20]]
+            'rating': user.rating,
+        }
+
+
+class RatingList(UserDataMixin, JsonView):
+    def get(self, *args, **kwargs):
+        users_qs = User.objects.all().order_by('-rating')
+        data = [self.get_user_data(user) for user in users_qs[:20]]
         return self.render(data)
 
 rating = RatingList.as_view()
 
 
-class ProfileView(JsonView):
+class ProfileView(UserDataMixin, JsonView):
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated():
-            return self.render({
-                'name': self.request.user.get_full_name(),
-                'avatar': self.request.user.get_avatar(),
-            })
+            return self.render(self.get_user_data(self.request.user))
         else:
             return self.render({})
 

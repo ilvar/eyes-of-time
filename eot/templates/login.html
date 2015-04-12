@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_css %}
+  <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static "css/login.css" %}">
+{% endblock %}
+
+{% block body_attrs %} class="login"{% endblock %}
+{% block content %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 col-sm-offset-3" style="margin-top: 50px;">
+        <h1>Eyes of Time</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4 col-sm-offset-4" style="margin-top: 10px; text-align: center;">
+        <img src="{% static "img/astronaut.png" %}" class="center-block">
+        <a class="btn btn-social btn-facebook"
+           href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
+          <i class=" fa fa-facebook"></i> Login with Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

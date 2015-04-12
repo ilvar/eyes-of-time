@@ -3,6 +3,7 @@ from django.contrib import admin
 
 urlpatterns = [
     # Examples:
+    url(r'^login/$', 'users.views.login', name='login'),
     url(r'^$', 'objects.views.home', name='home'),
     url(r'^events/$', 'objects.views.events', name='events'),
 

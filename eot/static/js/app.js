@@ -3,7 +3,7 @@
  */
 
 //var api_endpoint = "http://eyes-of-time.herokuapp.com";
-var api_endpoint = "http://localhost:8000";
+var api_endpoint = "";
 
 
 var eyesoftimeApp = angular.module('eyesoftimeApp', [])

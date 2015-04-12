@@ -60,6 +60,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 
     'eot.middleware.MobileSSOMiddleware',
+    'eot.middleware.LoginRequiredMiddleware'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -141,6 +142,11 @@ SOCIAL_AUTH_FACEBOOK_LOGIN_REDIRECT_URL = '/?logged=1'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/?logged=1'
 LOGIN_REDIRECT_URL = '/?logged=1'
 
+LOGIN_URL = '/login/'
+
+LOGIN_EXEMPT_URLS = (
+    r'^accounts/',  # allow any URL under /accounts/*
+)
 
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 

@@ -2,6 +2,7 @@ import json
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from eot.views import JsonView
 from objects.forms import EventForm
 
@@ -16,11 +17,13 @@ home = HomeView.as_view()
 
 class EventsList(JsonView):
     def get(self, *args, **kwargs):
-        events_qs = Event.objects.all().select_related('user')
+        events_qs = Event.objects.all().select_related('user').order_by('-added')
         data = [{
-            'user': unicode(event.user),
+            'user': unicode(event.user.get_full_name()),
+            'avatar': event.user.get_avatar(),
             'description': event.description,
-            'coordinates': map(float, [event.lat, event.lon])
+            'coordinates': map(float, [event.lat, event.lon]),
+            'added': naturaltime(event.added)
         } for event in events_qs[:100]]
         return self.render(data)
 

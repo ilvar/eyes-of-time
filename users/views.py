@@ -1,7 +1,10 @@
 import json
 
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
+from django.contrib.auth import logout as auth_logout
 
 from eot.views import JsonView
 from users.forms import ProfileForm
@@ -15,6 +18,15 @@ class LoginView(TemplateView):
     template_name = 'login.html'
 
 login = LoginView.as_view()
+
+
+def logout(request):
+    """
+    logout user
+    :return:
+    """
+    auth_logout(request)
+    return redirect(reverse('login'))
 
 
 class RatingList(JsonView):

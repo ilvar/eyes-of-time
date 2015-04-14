@@ -1,8 +1,11 @@
+@import url(http://fonts.googleapis.com/css?family=Unica+One);
+
 html, body, #container {
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
+
 body {
     padding-top: 50px;
 }
@@ -11,7 +14,7 @@ body {
     border-radius: 40px;
 }
 
-.btn-send{
+.btn-send {
     text-transform: uppercase;
     color: #FFFFFF;
     padding-left: 2.5em;
@@ -26,7 +29,7 @@ body {
     transition: background-position 0.3s ease-in-out;
 }
 
-.navbar-custom{
+.navbar-custom {
     background-color: #4B3C6B;
 }
 
@@ -34,18 +37,22 @@ body {
     font-weight: bold;
     font-size: 25px;
     color: #EB0C7B;
-    font-family: "Press Start 2P";
+    font-family: 'Unica One', sans-serif;
 }
+
 .navbar-collapse.in {
     overflow-y: hidden;
 }
+
 .navbar-header .navbar-icon-container {
     margin-right: 15px;
 }
+
 .navbar-header .navbar-icon {
     line-height: 50px;
     height: 50px;
 }
+
 .navbar-header a.navbar-icon {
     margin-left: 25px;
 }
@@ -55,32 +62,31 @@ body {
     background-color: #016797 !important;
 }
 
-.navbar-custom .user-photo-button img{
+.navbar-custom .user-photo-button img {
     width: 32px;
     height: 32px;
     border-radius: 14px;
 }
 
-.navbar-custom .user-photo-button img:hover{
+.navbar-custom .user-photo-button img:hover {
     -webkit-filter: brightness(1.15);
     filter: brightness(1.15);
 }
 
-li.rating h4{
-  padding-right: 30px;
-  padding-top: 5px;
+li.rating h4 {
+    padding-right: 30px;
+    padding-top: 5px;
 }
 
-li.rating h4{
-     font-weight: bold;
+li.rating h4 {
+    font-weight: bold;
     font-size: 18px;
     color: #EDBC87;
-    font-family: "Press Start 2P";
+    font-family: 'Unica One', sans-serif;
 }
 
-
 #sidebar {
-    overflow:auto;
+    overflow: auto;
     width: 450px;
     height: 100%;
     max-width: 100%;
@@ -90,11 +96,13 @@ li.rating h4{
     transition: all 0.25s ease-out;
     background-color: #EDBC87 !important;
 }
+
 #map {
     width: auto;
     height: 100%;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 #loading {
     position: absolute;
     width: 220px;
@@ -110,25 +118,30 @@ li.rating h4{
         font-size: 18px;
     }
 }
-@media (max-width: 767px){
+
+@media (max-width: 767px) {
     #sidebar {
         display: none;
     }
+
     .url-break {
         word-break: break-all;
         word-break: break-word;
         -webkit-hyphens: auto;
         hyphens: auto;
     }
-    .dropdown-menu a i{
+
+    .dropdown-menu a i {
         color: #FFFFFF;
     }
 }
+
 /* Print Handling */
 @media print {
     .navbar {
         display: none !important;
     }
+
     .leaflet-control-container {
         display: none !important;
     }
@@ -202,51 +215,54 @@ li.rating h4{
 }
 
 .vector-marker {
-  width: 35px;
-  height: 46px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  text-align: center;
+    width: 35px;
+    height: 46px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    text-align: center;
 }
+
 .vector-marker path {
-  stroke: black;
-  stroke-opacity: 0.4;
-  stroke-width: 1;
+    stroke: black;
+    stroke-opacity: 0.4;
+    stroke-width: 1;
 }
+
 .vector-marker.not-accepted {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .vector-marker-shadow {
-  background: url("https://github.com/hiasinho/Leaflet.vector-markers/blob/master/dist/assets/shadow.png") no-repeat 0 0;
-  width: 36px;
-  height: 16px;
+    background: url("https://github.com/hiasinho/Leaflet.vector-markers/blob/master/dist/assets/shadow.png") no-repeat 0 0;
+    width: 36px;
+    height: 16px;
 }
 
 /* Retina displays */
 @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
-  .vector-marker {
-    background-size: 720px 46px;
-  }
+    .vector-marker {
+        background-size: 720px 46px;
+    }
 
-  .vector-marker-shadow {
-    background-image: url("https://github.com/hiasinho/Leaflet.vector-markers/blob/master/dist/assets/shadow@2x.png");
-    background-size: 54px 51px;
-  }
+    .vector-marker-shadow {
+        background-image: url("https://github.com/hiasinho/Leaflet.vector-markers/blob/master/dist/assets/shadow@2x.png");
+        background-size: 54px 51px;
+    }
 }
+
 .vector-marker i {
-  position: absolute;
-  top: 8px;
-  left: 0;
-  width: 32px;
-  color: #333;
-  margin: auto;
-  display: inline-block;
-  font-size: 14px;
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 32px;
+    color: #333;
+    margin: auto;
+    display: inline-block;
+    font-size: 14px;
 }
 
 .vector-marker .icon-white {
-  color: #fff;
+    color: #fff;
 }

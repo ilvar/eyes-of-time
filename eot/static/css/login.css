@@ -1,12 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Unica+One);
+
 body.login {
-  background-color: #1E0212;
+  background-color: #18000a;
 }
 
 h1 {
   font-weight: bold;
   font-size: 40px;
   color: #F6EF9F;
-  font-family: "Press Start 2P";
+  font-family: 'Unica One', sans-serif;
   text-align: center;
 }
 
@@ -148,22 +150,17 @@ h1 {
   border-color: rgba(0, 0, 0, 0.2)
 }
 
-.btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active, .open > .dropdown-toggle.btn-facebook {
-  color: #fff;
+.btn-facebook:hover, .btn-facebook:focus, .btn-facebook:active, .btn-facebook.active {
   background-color: #2d4373;
+}
+
+.btn-google {
+  color: #fff;
+  background-color: #d34836;
   border-color: rgba(0, 0, 0, 0.2)
 }
 
-.btn-facebook:active, .btn-facebook.active, .open > .dropdown-toggle.btn-facebook {
-  background-image: none
+.btn-google:hover, .btn-google:focus, .btn-google:active, .btn-google.active {
+  background-color: #AE3B2D;
 }
 
-.btn-facebook.disabled, .btn-facebook[disabled], fieldset[disabled] .btn-facebook, .btn-facebook.disabled:hover, .btn-facebook[disabled]:hover, fieldset[disabled] .btn-facebook:hover, .btn-facebook.disabled:focus, .btn-facebook[disabled]:focus, fieldset[disabled] .btn-facebook:focus, .btn-facebook.disabled:active, .btn-facebook[disabled]:active, fieldset[disabled] .btn-facebook:active, .btn-facebook.disabled.active, .btn-facebook[disabled].active, fieldset[disabled] .btn-facebook.active {
-  background-color: #3b5998;
-  border-color: rgba(0, 0, 0, 0.2)
-}
-
-.btn-facebook .badge {
-  color: #3b5998;
-  background-color: #fff
-}

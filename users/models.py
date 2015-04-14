@@ -1,3 +1,5 @@
+import hashlib
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -18,6 +20,4 @@ class User(AbstractUser):
         if fb:
             return 'https://graph.facebook.com/%s/picture?type=square' % fb.uid
 
-        gp = self.social_auth.filter(provider='google-oauth2').first()
-        if gp:
-            return 'http://profiles.google.com/s2/photos/profile/%s?sz=50' % gp.uid
+        return 'http://www.gravatar.com/avatar/%s?s=50' % hashlib.md5(self.email).hexdigest()

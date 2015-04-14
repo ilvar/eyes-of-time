@@ -1,5 +1,4 @@
 from django.db import models
-import facebook
 
 
 class Event(models.Model):
@@ -27,10 +26,5 @@ def recount_findings(instance, created, *args, **kwargs):
     instance.user.findings_count = Event.objects.filter(user=instance.user).count()
     instance.user.rating = Event.objects.filter(user=instance.user).count()  # TODO: better calc
     instance.user.save()
-
-    # TODO: Adds a FB post when fb approves app perms
-    # auth = instance.user.social_auth.first()
-    # graph = facebook.GraphAPI(auth.extra_data['access_token'])
-    # graph.put_object('me', 'feed', message=instance.description)
 
 models.signals.post_save.connect(recount_findings, sender=Event)

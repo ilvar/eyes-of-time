@@ -14,6 +14,10 @@ class User(AbstractUser):
         return self.name or 'User %s' % self.pk
 
     def get_avatar(self):
-        sa = self.social_auth.filter(provider='facebook').first()
-        if sa:
-            return 'https://graph.facebook.com/%s/picture?type=square' % sa.uid
+        fb = self.social_auth.filter(provider='facebook').first()
+        if fb:
+            return 'https://graph.facebook.com/%s/picture?type=square' % fb.uid
+
+        gp = self.social_auth.filter(provider='google-oauth2').first()
+        if gp:
+            return 'http://profiles.google.com/s2/photos/profile/%s?sz=50' % gp.uid

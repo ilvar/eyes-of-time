@@ -39,3 +39,11 @@ class EventsList(JsonView):
             return self.render({'error': 'Data is invalid', 'errors_list': form.errors})
 
 events = csrf_exempt(EventsList.as_view())
+
+
+class PrivacyView(TemplateView):
+    template_name = 'privacy.html'
+
+privacy = PrivacyView.as_view()
+
+

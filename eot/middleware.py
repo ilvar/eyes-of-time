@@ -1,13 +1,13 @@
+import re
+
 from django.shortcuts import redirect
-
-
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from re import compile
 
-EXEMPT_URLS = [compile(settings.LOGIN_URL.lstrip('/'))]
+EXEMPT_URLS = [re.compile(settings.LOGIN_URL.lstrip('/')), re.compile('^privacy/')]
+
 if hasattr(settings, 'LOGIN_EXEMPT_URLS'):
-    EXEMPT_URLS += [compile(expr) for expr in settings.LOGIN_EXEMPT_URLS]
+    EXEMPT_URLS += [re.compile(expr) for expr in settings.LOGIN_EXEMPT_URLS]
 
 
 class LoginRequiredMiddleware:
@@ -21,12 +21,6 @@ class LoginRequiredMiddleware:
     loaded. You'll get an error if they aren't.
     """
     def process_request(self, request):
-        assert hasattr(request, 'user'), "The Login Required middleware\
- requires authentication middleware to be installed. Edit your\
- MIDDLEWARE_CLASSES setting to insert\
- 'django.contrib.auth.middleware.AuthenticationMiddleware'. If that doesn't\
- work, ensure your TEMPLATE_CONTEXT_PROCESSORS setting includes\
- 'django.core.context_processors.auth'."
         if not request.user.is_authenticated():
             path = request.path_info.lstrip('/')
             if not any(m.match(path) for m in EXEMPT_URLS):
@@ -37,13 +31,11 @@ class MobileSSOMiddleware(object):
     def process_request(self, request):
         mobile_redirect = request.GET.get('mobile')
         if mobile_redirect:
-            print 'mobile_url put', mobile_redirect
             request.session['mobile'] = mobile_redirect
             return redirect('/accounts/login/facebook/?next=/')
 
         if request.path == '/' or request.path == '/accounts/profile/':
             mobile_url = request.session.get('mobile')
-            print 'mobile_url read', mobile_url
             if mobile_url:
                 del request.session['mobile']
                 return redirect(mobile_url)

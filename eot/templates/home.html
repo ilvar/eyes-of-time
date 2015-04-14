@@ -2,94 +2,99 @@
 {% load staticfiles %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
-  <link rel="stylesheet" href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css">
-  <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css' rel='stylesheet' />
+    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
+    <link rel="stylesheet"
+          href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css">
+    <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css'
+          rel='stylesheet'/>
 
-  <link rel="stylesheet" href="{% static "css/eyes-of-space.css" %}">
+    <link rel="stylesheet" href="{% static "css/eyes-of-space.css" %}">
 {% endblock %}
 
-{% block body_attrs %} ng-app="eyesoftimeApp" ng-controller="FindingListController"{% endblock %}
+{% block body_attrs %} class="app" ng-app="eyesoftimeApp" ng-controller="FindingListController"{% endblock %}
 {% block content %}
-  <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <div class="navbar-icon-container">
-          <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i
-                  class="fa fa-bars fa-lg white"></i></a>
-          <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i
-                  class="fa fa-search fa-lg white"></i></a>
-        </div>
-        <a class="navbar-brand" href="/">Eyes of Time</a>
-      </div>
-      <div class="navbar-collapse collapse">
-        <!--uSER DATA -->
-        <ul class="nav navbar-nav pull-right">
-          <li class="rating"><h4>My Rating: <span ng-bind="rating"></span></h4></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle user-photo-button" id="userDrop" href="#" role="button"
-               data-toggle="dropdown">
-              {% if user.is_authenticated %}
-                <img src="{{ user.get_avatar }}"/> {{ user.get_full_name }} <b class="caret"></b>
-              {% endif %}
-            </a>
-            <ul class="dropdown-menu">
-              <li class="divider"></li>
-              <li><a href="{% url 'logout' %}">Exit</a></li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav">
-        </ul>
-      </div>
-      <!--/.navbar-collapse -->
-    </div>
-  </div>
-
-  <div id="container">
-    <div id="sidebar">
-      <div class="sidebar-wrapper">
-        <div class="panel panel-default" id="features">
-          <div class="panel-heading">
-            <h3 class="panel-title">Findings
-              <button ng-click="toggleSidebar()" type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i
-                      class="fa fa-chevron-left"></i></button>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <div class="row event-activity">
-              <ul class="unstyled">
-                <li ng-repeat="event in events">
-                  <div class="author">
-                    <img ng-src="[[event.avatar]]"/>
-                  </div>
-                  <div class="name" ng-bind="event.user"></div>
-                  <div class="date" ng-bind="event.added"></div>
-                  <div class="description" ng-bind="event.description"></div>
-                </li>
-              </ul>
+    <div class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-icon-container">
+                    <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i
+                        class="fa fa-bars fa-lg white"></i></a>
+                    <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i
+                        class="fa fa-search fa-lg white"></i></a>
+                </div>
+                <a class="navbar-brand" href="/">Eyes of Time</a>
             </div>
-          </div>
+            <div class="navbar-collapse collapse">
+                <!--uSER DATA -->
+                <ul class="nav navbar-nav pull-right">
+                    {% if user.is_authenticated %}
+                        <li class="rating"><h4>My Rating: <span ng-bind="rating"></span></h4></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle user-photo-button" id="userDrop" href="#" role="button" data-toggle="dropdown">
+                                <img src="{{ user.get_avatar }}"/> {{ user.get_full_name }} <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="divider"></li>
+                                <li><a href="{% url 'logout' %}">Exit</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+            <!--/.navbar-collapse -->
         </div>
-      </div>
     </div>
-    <div id="map" event-broadcast="actions"></div>
-    <modal title="Add Event" visible="showModal">
-      <form role="form">
-        <div class="form-group">
-          <label for="description"></label>
-          <input type="text" class="form-control" id="description" placeholder="Enter description of event found..."
-                 ng-model="newEvent.description"/>
+
+    {% block main %}
+        <div id="container">
+            <div id="sidebar">
+                <div class="sidebar-wrapper">
+                    <div class="panel panel-default" id="features">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Findings
+                                <button ng-click="toggleSidebar()" type="button"
+                                        class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i
+                                    class="fa fa-chevron-left"></i></button>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row event-activity">
+                                <ul class="unstyled">
+                                    <li ng-repeat="event in events">
+                                        <div class="author">
+                                            <img ng-src="[[event.avatar]]"/>
+                                        </div>
+                                        <div class="name" ng-bind="event.user"></div>
+                                        <div class="date" ng-bind="event.added"></div>
+                                        <div class="description" ng-bind="event.description"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="map" event-broadcast="actions"></div>
+            <modal title="Add Event" visible="showModal">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="description"></label>
+                        <input type="text" class="form-control" id="description"
+                               placeholder="Enter description of event found..."
+                               ng-model="newEvent.description"/>
+                    </div>
+                    <button type="submit" class="btn btn-pill btn-send" ng-click="registerEvent()">Submit</button>
+                </form>
+            </modal>
         </div>
-        <button type="submit" class="btn btn-pill btn-send" ng-click="registerEvent()">Submit</button>
-      </form>
-    </modal>
-  </div>
+    {% endblock main %}
 {% endblock %}
 {% block extra_js %}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-  <script src="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-  <script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"></script>
-  <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>
-  <script src="{% static "js/app.js" %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"></script>
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>
+    <script src="{% static "js/app.js" %}"></script>
 {% endblock %}

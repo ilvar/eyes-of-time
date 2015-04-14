@@ -26,7 +26,6 @@ Links
 
 TODO
 ----
-* User location (`map.locate()`) - IMPORTANT
 * Mobile app - other user accounts
 * Screenshots
   * [leaflet-image](https://github.com/mapbox/leaflet-image) or   [Leaflet-Save-Map-to-PNG](https://github.com/tegansnyder/Leaflet-Save-Map-to-PNG) 
@@ -34,7 +33,6 @@ TODO
 * Sharing (fb, twitter - mind OG tags!)
 * Likes 
 * Better gamification (count likes; how to recount data on heroku?)
-* Publishing Facebook app
 * Publishing Android app
 * Tagging
 * Caching tiles https://github.com/gregallensworth/L.TileLayer.Cordova

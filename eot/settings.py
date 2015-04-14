@@ -182,7 +182,7 @@ if 'DATABASE_URL' in os.environ:
     SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
     SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
 
-    DEBUG = False
+    DEBUG = os.environ.get('DEBUG', False)
 
 try:
     from local_settings import *

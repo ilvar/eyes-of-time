@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Unica+One);
+@import url(https://fonts.googleapis.com/css?family=Unica+One);
 
 body.login {
   background-color: #18000a;
@@ -65,14 +65,13 @@ h1 {
 
 .btn-social-icon {
   position: relative;
-  padding-left: 44px;
   text-align: left;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   height: 34px;
   width: 34px;
-  padding: 0
+  padding: 0 0 0 44px;
 }
 
 .btn-social-icon > :first-child {

@@ -4,7 +4,7 @@
 {% block title %}{{ block.super }} | {{ event.description }}{% endblock %}
 
 {% block extra_head %}
-    <meta property="og:title" content="{{ event.description }} @ Eyes of Time" />
+    <meta property="og:title" content="{{ event.description }}" />
     <meta property="og:url" content="http://eyes-of-time.herokuapp.com/event/{{ event.pk }}/" />
     <meta property="og:image" content="{{ event.img.url }}" />
     <meta property="og:description" content="Look for interesting natural events every day. From space. Literally." />

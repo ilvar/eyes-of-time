@@ -26,7 +26,7 @@
                 <!--uSER DATA -->
                 <ul class="nav navbar-nav pull-right">
                     {% if user.is_authenticated %}
-                        <li class="rating"><h4>My Rating: <span ng-bind="rating"></span></h4></li>
+                        <li class="rating"><h4>My Rating: <span>{{ user.rating }}</span></h4></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle user-photo-button" id="userDrop" href="#" role="button" data-toggle="dropdown">
                                 <img src="{{ user.get_avatar }}"/> {{ user.get_full_name }} <b class="caret"></b>

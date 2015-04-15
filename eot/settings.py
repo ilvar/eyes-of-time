@@ -60,7 +60,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 
     'eot.middleware.MobileSSOMiddleware',
-    'eot.middleware.LoginRequiredMiddleware'
 )
 
 CORS_ORIGIN_ALLOW_ALL = True

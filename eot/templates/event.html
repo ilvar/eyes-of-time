@@ -1,0 +1,36 @@
+{% extends "home.html" %}
+
+{% block title %}{{ block.super }} | {{ event.description }}{% endblock %}
+
+{% block extra_head %}
+<meta property="og:title" content="{{ event.description }} @ Eyes of Time" />
+<meta property="og:url" content="http://eyes-of-time.herokuapp.com/event/{{ event.pk }}/" />
+<meta property="og:image" content="{{ event.img.url }}" />
+{% endblock extra_head %}
+
+{% block body_attrs %}{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                {% if event.img %}
+                    <img src="{{ event.img.url }}" alt="{{ event.description }}" class="img-thumbnail pull-left" />
+                {% endif %}
+            </div>
+            <div class="col-lg-10 col-md-9 col-sm-8">
+                <h1>{{ event.description }}</h1>
+                <blockquote>
+                    <img src="{{ event.user.get_avatar }}" class="img-circle pull-left" />
+                    {{ event.user.get_full_name }}
+                </blockquote>
+            </div>
+        </div>
+        <div class="row">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <div class="container">
+    </div>
+{% endblock %}

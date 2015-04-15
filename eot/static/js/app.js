@@ -171,7 +171,7 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
     minZoom: 1,
     maxZoom: 9,
     format: 'jpg',
-    time: '2015-04-08',
+    time: '2015-04-12',
     tilematrixset: 'GoogleMapsCompatible_Level'
   });
 
@@ -188,8 +188,10 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
         return m.getLatLng().lat == e.coordinates[0] && m.getLatLng().lon == e.coordinates[1];
       });
       if (!existing_markers.length) {
-        var marker = L.marker(e.coordinates, {icon: L.VectorMarkers.icon({icon: 'rocket', prefix: 'fa', markerColor: '#EB0C7B', spin: true})});
-        marker.bindPopup(e.description);
+        var icon_opts = {icon: 'rocket', prefix: 'fa', markerColor: '#EB0C7B', spin: true};
+        var marker = L.marker(e.coordinates, {icon: L.VectorMarkers.icon(icon_opts)});
+
+        marker.bindPopup('<a href="' + e.url + '">' + e.description + '</a>');
         $scope.markers.push(marker);
         marker.addTo($scope.map)
       }
@@ -200,17 +202,56 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
     $("#sidebar").toggle();
     $scope.map.invalidateSize();
     return false;
-  }
+  };
 
   $scope.showModal = false;
 
   $scope.onMapClick = function (event) {
-    $scope.newEvent.lat = event.latlng.lat;
-    $scope.newEvent.lon = event.latlng.lng;
-    $scope.toggleModal();
-    $scope.$apply();
-  };
+    var mapPoint = $scope.map.project(event.latlng);
+    var layerPoint = $scope.map.project(event.latlng).divideBy(256).floor();
 
+    var tile_x = mapPoint.x - layerPoint.x * 256;
+    var tile_y = mapPoint.y - layerPoint.y * 256;
+
+    var img = document.createElement('img');
+
+    img.onload = function() {
+      var canvas = document.createElement('canvas');
+      canvas.width = 200;
+      canvas.height = 200;
+
+      var src_x, src_y;
+      if (tile_x > 256 - canvas.width / 2) {
+        src_x = 256 - canvas.width;
+      } else if (tile_x < canvas.width / 2) {
+        src_x = 0;
+      } else {
+        src_x = tile_x - canvas.width / 2;
+      }
+      if (tile_y > 256 - canvas.height / 2) {
+        src_y = 256 - canvas.height;
+      } else if (tile_y < canvas.height / 2) {
+        src_y = 0;
+      } else {
+        src_y = tile_y - canvas.height / 2;
+      }
+
+      var context = canvas.getContext('2d');
+      context.drawImage(img, src_x, src_y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+
+      $scope.newEvent.dataURL = canvas.toDataURL();
+      $scope.newEvent.lat = event.latlng.lat;
+      $scope.newEvent.lon = event.latlng.lng;
+      $scope.toggleModal();
+      $scope.$apply();
+    };
+
+    var url = '/tile/';
+    url += '2015-04-12/GoogleMapsCompatible_Level9/';
+    url += $scope.map.getZoom() + '/' + layerPoint.y % 255 + '/' + layerPoint.x % 255 + '.jpg'; // z, y, x
+
+    img.src = url;
+  };
 
   $scope.map.on('dblclick', $scope.onMapClick);
 
@@ -221,10 +262,10 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
   $scope.registerEvent = function () {
     $http.post(api_endpoint + '/events/', $scope.newEvent, {withCredentials: true}).success(function (result) {
       if (!result.error) {
-        $scope.events = result;
+        $scope.events.splice(0, 0, result);
         $scope.resetEvent();
         $scope.refreshProfile();
-        $scope.toggleModal();
+        $scope.showModal = false;
       } else {
         alert(result.error);
       }

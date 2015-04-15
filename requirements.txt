@@ -1,10 +1,13 @@
 Django==1.8
+boto
 dj-database-url==0.3.0
 dj-static==0.0.6
 django-cors-headers==1.0.0
 django-postgrespool==0.3.0
+django-storages
 django-toolbelt==0.0.1
 gunicorn==19.3.0
+Pillow
 psycopg2==2.6
 python-social-auth==0.2.3
 whitenoise==1.0.6

@@ -269,3 +269,11 @@ li.rating h4 {
 .vector-marker .icon-white {
     color: #fff;
 }
+
+img.pull-left {
+    margin-right: 1em;
+}
+
+blockquote {
+    overflow: hidden;
+}

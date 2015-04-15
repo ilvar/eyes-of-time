@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block extra_css %}
+{% block extra_head %}
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
-    <link rel="stylesheet"
-          href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css">
-    <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css'
-          rel='stylesheet'/>
+    <link rel="stylesheet" href="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.css">
+    <link rel='stylesheet' href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/leaflet.fullscreen.css'/>
 
     <link rel="stylesheet" href="{% static "css/eyes-of-space.css" %}">
 {% endblock %}
@@ -53,13 +51,16 @@
                 <div class="sidebar-wrapper">
                     <div class="panel panel-default" id="features">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Findings
-                                <button ng-click="toggleSidebar()" type="button"
-                                        class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i
-                                    class="fa fa-chevron-left"></i></button>
+                            <h3 class="panel-title">
+                                Findings
+                                <button ng-click="toggleSidebar()" type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
                             </h3>
                         </div>
                         <div class="panel-body">
+                            <div id="images"></div>
+
                             <div class="row event-activity">
                                 <ul class="unstyled">
                                     <li ng-repeat="event in events">
@@ -68,7 +69,10 @@
                                         </div>
                                         <div class="name" ng-bind="event.user"></div>
                                         <div class="date" ng-bind="event.added"></div>
-                                        <div class="description" ng-bind="event.description"></div>
+                                        <div class="description">
+                                            <a ng-href="[[ event.url ]]" ng-bind="event.description" ng-show="event.url"></a>
+                                            <span ng-bind="event.description" ng-hide="event.url"></span>
+                                        </div>
                                     </li>
                                 </ul>
                             </div>
@@ -93,6 +97,8 @@
 {% endblock %}
 {% block extra_js %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js'></script>
+
     <script src="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.24.0/L.Control.Locate.js"></script>
     <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.2/Leaflet.fullscreen.min.js'></script>

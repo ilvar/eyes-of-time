@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 
@@ -6,11 +7,15 @@ class Event(models.Model):
     description = models.CharField(max_length=140)
     lat = models.DecimalField(max_digits=20, decimal_places=16)
     lon = models.DecimalField(max_digits=20, decimal_places=16)
+    img = models.ImageField(null=True, editable=False)
 
     # Ratings
     likes = models.PositiveIntegerField(default=0, editable=0)
 
     added = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('one_event', args=[self.pk])
 
 
 class Like(models.Model):

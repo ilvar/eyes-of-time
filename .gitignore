@@ -9,6 +9,8 @@ eot-mobile/node_modules/
 eot-mobile/platforms/
 eot-mobile/plugins/
 
+/media/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

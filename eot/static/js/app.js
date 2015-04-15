@@ -246,9 +246,20 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
       $scope.$apply();
     };
 
+    var x = layerPoint.x % 255;
+    var y = layerPoint.y % 255;
+
+    if (x < 0) {
+      x = (25500 - x) % 255;
+    }
+
+    if (y < 0) {
+      y = (25500 - y) % 255;
+    }
+
     var url = '/tile/';
     url += '2015-04-12/GoogleMapsCompatible_Level9/';
-    url += $scope.map.getZoom() + '/' + layerPoint.y % 255 + '/' + layerPoint.x % 255 + '.jpg'; // z, y, x
+    url += $scope.map.getZoom() + '/' + y + '/' + x + '.jpg'; // z, y, x
 
     img.src = url;
   };

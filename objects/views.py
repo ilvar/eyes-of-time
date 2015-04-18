@@ -1,6 +1,8 @@
 import json
 import urllib
+from django.contrib import messages
 from django.http import HttpResponse
+from django.shortcuts import redirect
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView, View, DetailView
@@ -8,7 +10,7 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from eot.views import JsonView
 from objects.forms import EventForm
 
-from objects.models import Event
+from objects.models import Event, Like
 
 
 class HomeView(TemplateView):
@@ -52,6 +54,21 @@ events = csrf_exempt(EventsList.as_view())
 class EventsDetail(DetailView):
     model = Event
     template_name = 'event.html'
+
+    def get_context_data(self, **kwargs):
+        data = super(EventsDetail, self).get_context_data(**kwargs)
+        if self.request.user.is_authenticated():
+            data['like'] = Like.objects.filter(event=self.get_object(), user=self.request.user).first()
+        return data
+
+    def post(self, *args, **kwargs):
+        if not self.request.user.is_authenticated():
+            messages.error(self.request, 'You should be <a href="/login/">authenticated</a>')
+            return redirect('.')
+
+        Like.objects.get_or_create(event=self.get_object(), user=self.request.user)
+        messages.success(self.request, 'You like this event!')
+        return redirect('.')
 
 one_event = EventsDetail.as_view()
 

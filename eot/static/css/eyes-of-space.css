@@ -33,7 +33,7 @@ body {
 }
 
 .navbar-custom {
-    background-color: #4B3C6B;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .navbar .navbar-brand {
@@ -62,7 +62,6 @@ body {
 
 .navbar-custom .user-photo-button {
     padding: 9px;
-    background-color: #016797 !important;
 }
 
 .navbar-custom .user-photo-button img {
@@ -82,10 +81,6 @@ li.rating h4 {
 }
 
 li.rating h4 {
-    font-weight: bold;
-    font-size: 18px;
-    color: #EDBC87;
-    font-family: 'Unica One', sans-serif;
 }
 
 #sidebar {
@@ -97,13 +92,11 @@ li.rating h4 {
     -webkit-transition: all 0.25s ease-out;
     -moz-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
-    background-color: #EDBC87 !important;
 }
 
 #map {
     width: auto;
     height: 100%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #loading {
@@ -277,3 +270,24 @@ img.pull-left {
 blockquote {
     overflow: hidden;
 }
+
+.container.event {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.container.event .user {
+    margin: 0 auto;
+    width: 40%;
+    overflow: hidden;
+    margin-top: 2em;
+}
+
+.messages {
+  position: fixed;
+  right: 1em;
+  top: 70px;
+  width: 400px;
+  z-index: 10000;
+}
+

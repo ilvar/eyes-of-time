@@ -41,6 +41,7 @@ INSTALLED_APPS = (
 
     'social.apps.django_app.default',
     'corsheaders',
+    'taggit',
 
     'eot',
     'users',

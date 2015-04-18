@@ -1,5 +1,6 @@
 import base64
 import random
+import re
 import string
 
 from django import forms
@@ -38,5 +39,10 @@ class EventForm(forms.ModelForm):
         else:
             if commit:
                 event.save()
+
+        if '#' in event.description:
+            tags = re.findall('\#\w+', event.description)
+            tags = [t.strip('#') for t in tags]
+            event.tags.set(*tags)
 
         return event

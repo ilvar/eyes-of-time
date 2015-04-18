@@ -188,7 +188,7 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
         return m.getLatLng().lat == e.coordinates[0] && m.getLatLng().lon == e.coordinates[1];
       });
       if (!existing_markers.length) {
-        var icon_opts = {icon: 'rocket', prefix: 'fa', markerColor: '#EB0C7B', spin: true};
+        var icon_opts = {icon: 'eye', prefix: 'fa', markerColor: '#EB0C7B'};
         var marker = L.marker(e.coordinates, {icon: L.VectorMarkers.icon(icon_opts)});
 
         marker.bindPopup('<a href="' + e.url + '">' + e.description + '</a>');

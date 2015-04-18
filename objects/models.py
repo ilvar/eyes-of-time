@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+from taggit.managers import TaggableManager
+
 
 class Event(models.Model):
     user = models.ForeignKey('users.User')
@@ -11,6 +13,7 @@ class Event(models.Model):
 
     # Ratings
     likes = models.PositiveIntegerField(default=0, editable=0)
+    tags = TaggableManager()
 
     added = models.DateTimeField(auto_now_add=True)
 

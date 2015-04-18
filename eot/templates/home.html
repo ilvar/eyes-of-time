@@ -26,7 +26,7 @@
                 <!--uSER DATA -->
                 <ul class="nav navbar-nav pull-right">
                     {% if user.is_authenticated %}
-                        <li class="rating"><h4>My Rating: <span>{{ user.rating }}</span></h4></li>
+                        <li class="navbar-text ">My Rating: <span class="badge">{{ user.rating }}</span></li>
                         <li class="dropdown">
                             <a class="dropdown-toggle user-photo-button" id="userDrop" href="#" role="button" data-toggle="dropdown">
                                 <img src="{{ user.get_avatar }}"/> {{ user.get_full_name }} <b class="caret"></b>
@@ -36,6 +36,8 @@
                                 <li><a href="{% url 'logout' %}">Exit</a></li>
                             </ul>
                         </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Sign in</a></li>
                     {% endif %}
                 </ul>
                 <ul class="nav navbar-nav">
@@ -85,9 +87,11 @@
                 <form role="form">
                     <div class="form-group">
                         <label for="description"></label>
-                        <input type="text" class="form-control" id="description"
-                               placeholder="Enter description of event found..."
-                               ng-model="newEvent.description"/>
+                        <input type="text" class="form-control" id="description" ng-model="newEvent.description"
+                               placeholder="Enter description of event found" required="required"/>
+                        <p class="help-block">
+                            You can use hashtags, like <a href="#">#volcano</a> or <a href="#">#cloud</a>.
+                        </p>
                     </div>
                     <button type="submit" class="btn btn-pill btn-send" ng-click="registerEvent()">Submit</button>
                 </form>

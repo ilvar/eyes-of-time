@@ -10,6 +10,7 @@ class Event(models.Model):
     lat = models.DecimalField(max_digits=20, decimal_places=16)
     lon = models.DecimalField(max_digits=20, decimal_places=16)
     img = models.ImageField(null=True, editable=False)
+    date = models.DateField(null=True)
 
     # Ratings
     likes = models.PositiveIntegerField(default=0, editable=0)

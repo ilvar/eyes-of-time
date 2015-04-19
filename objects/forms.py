@@ -14,7 +14,7 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ['description', 'lat', 'lon']
+        fields = ['description', 'lat', 'lon', 'date']
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')

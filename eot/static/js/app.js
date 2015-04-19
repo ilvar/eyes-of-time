@@ -105,7 +105,7 @@
 var api_endpoint = "";
 
 
-var eyesoftimeApp = angular.module('eyesoftimeApp', [])
+var eyesoftimeApp = angular.module('eyesoftimeApp', ['ui.bootstrap'])
   .config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[').endSymbol(']]');
   });
@@ -162,20 +162,39 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
     }
   }).addTo($scope.map);
 
-  var layer = L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
-    attribution: 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
-    bounds: [
-      [-90, -180],
-      [90, 180]
-    ],
-    minZoom: 1,
-    maxZoom: 9,
-    format: 'jpg',
-    time: '2015-04-12',
-    tilematrixset: 'GoogleMapsCompatible_Level'
-  });
+  $scope.layer = null;
+  $scope.yesterday = moment().subtract(1, 'days').toDate();
+  if (localStorage.getItem('date')) {
+    $scope.date = moment(localStorage.getItem('date')).toDate();
+  } else {
+    $scope.date = $scope.yesterday;
+  }
 
-  $scope.map.addLayer(layer);
+  $scope.resetLayer = function() {
+    localStorage.setItem('date', moment($scope.date).toISOString());
+    if ($scope.layer) {
+      $scope.map.removeLayer($scope.layer);
+    }
+
+    $scope.layer = L.tileLayer('https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_CorrectedReflectance_TrueColor/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}', {
+      attribution: 'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+      bounds: [
+        [-90, -180],
+        [90, 180]
+      ],
+      minZoom: 1,
+      maxZoom: 9,
+      format: 'jpg',
+      time: moment($scope.date).format("YYYY-MM-DD"),
+      tilematrixset: 'GoogleMapsCompatible_Level'
+    });
+
+    $scope.map.addLayer($scope.layer);
+  };
+
+  $scope.resetLayer();
+
+  $scope.$watch('date', $scope.resetLayer);
 
   $scope.markers = [];
 
@@ -197,12 +216,6 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
       }
     });
   });
-
-  $scope.toggleSidebar = function () {
-    $("#sidebar").toggle();
-    $scope.map.invalidateSize();
-    return false;
-  };
 
   $scope.showModal = false;
 
@@ -271,6 +284,7 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
   };
 
   $scope.registerEvent = function () {
+    $scope.newEvent.date = moment($scope.date).format('YYYY-MM-DD');
     $http.post(api_endpoint + '/events/', $scope.newEvent, {withCredentials: true}).success(function (result) {
       if (!result.error) {
         $scope.events.splice(0, 0, result);

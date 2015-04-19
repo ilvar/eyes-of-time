@@ -291,3 +291,6 @@ blockquote {
   z-index: 10000;
 }
 
+table[role=grid] {
+    width: 100%;
+}

@@ -170,6 +170,10 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
     $scope.date = $scope.yesterday;
   }
 
+  $scope.date_str = function() {
+    return moment($scope.date).format('DD.MM.YYYY');
+  };
+
   $scope.resetLayer = function() {
     localStorage.setItem('date', moment($scope.date).toISOString());
     if ($scope.layer) {
@@ -199,21 +203,16 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
   $scope.markers = [];
 
   $scope.$watch('events', function (events_list) {
-    if (!events_list) {
-      return
-    }
+    _.each($scope.markers, function (m) {
+      $scope.map.removeLayer(m);
+    });
     _.each(events_list, function (e) {
-      var existing_markers = _.filter($scope.markers, function (m) {
-        return m.getLatLng().lat == e.coordinates[0] && m.getLatLng().lon == e.coordinates[1];
-      });
-      if (!existing_markers.length) {
-        var icon_opts = {icon: 'eye', prefix: 'fa', markerColor: '#EB0C7B'};
-        var marker = L.marker(e.coordinates, {icon: L.VectorMarkers.icon(icon_opts)});
+      var icon_opts = {icon: 'eye', prefix: 'fa', markerColor: '#EB0C7B'};
+      var marker = L.marker(e.coordinates, {icon: L.VectorMarkers.icon(icon_opts)});
 
-        marker.bindPopup('<a href="' + e.url + '">' + e.description + '</a>');
-        $scope.markers.push(marker);
-        marker.addTo($scope.map)
-      }
+      marker.bindPopup('<a href="' + e.url + '">' + e.description + '</a>');
+      $scope.markers.push(marker);
+      $scope.map.addLayer(marker);
     });
   });
 
@@ -298,13 +297,16 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
   };
 
   $scope.loadEvents = function () {
-    $http.get(api_endpoint + '/events/', {withCredentials: true}).success(function (result) {
+    var ds = $scope.date_str();
+    $http.get(api_endpoint + '/events/' + ds + '/', {withCredentials: true}).success(function (result) {
       $scope.events = result;
     });
   };
 
   $scope.loadEvents();
   $interval($scope.loadEvents, 60 * 1000); // 1 minute
+
+  $scope.$watch('date', $scope.loadEvents);
 
   $scope.refreshProfile = function () {
     $http.get('/profile/', {withCredentials: true}).success(function (result) {

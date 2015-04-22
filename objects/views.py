@@ -1,5 +1,6 @@
 import json
 import urllib
+import datetime
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -34,6 +35,12 @@ class EventsList(JsonView):
 
     def get(self, *args, **kwargs):
         events_qs = Event.objects.all().select_related('user').order_by('-added')
+
+        ds = self.kwargs.get('date')
+        if ds:
+            d = datetime.datetime.strptime(ds, '%d.%m.%Y').date()
+            events_qs = events_qs.filter(added__day=d.day, added__month=d.month, added__year=d.year)
+
         data = [self.get_event_data(event) for event in events_qs[:100]]
         return self.render(data)
 

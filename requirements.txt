@@ -11,4 +11,5 @@ gunicorn
 Pillow
 psycopg2
 python-social-auth
+pytz
 whitenoise

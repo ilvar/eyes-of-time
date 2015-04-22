@@ -7,6 +7,7 @@ urlpatterns = [
     # Examples:
     url(r'^$', 'objects.views.home', name='home'),
     url(r'^events/$', 'objects.views.events', name='events'),
+    url(r'^events/(?P<date>\d{2}\.\d{2}.\d{4})/$', 'objects.views.events', name='events'),
     url(r'^events/(?P<pk>\d+)/$', 'objects.views.one_event', name='one_event'),
 
     url(r'^privacy/$', 'objects.views.privacy', name='privacy'),

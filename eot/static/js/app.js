@@ -274,7 +274,7 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
     }
 
     var url = '/tile/';
-    url += '2015-04-12/GoogleMapsCompatible_Level9/';
+    url += moment($scope.date).format("YYYY-MM-DD") + '/GoogleMapsCompatible_Level9/';
     url += $scope.map.getZoom() + '/' + y + '/' + x + '.jpg'; // z, y, x
 
     img.src = url;

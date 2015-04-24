@@ -21,6 +21,8 @@ home = HomeView.as_view()
 
 
 class EventsList(JsonView):
+    template_name = 'event.html'
+
     def get_event_data(self, event):
         return {
             'pk': event.pk,

@@ -163,11 +163,11 @@ eyesoftimeApp.controller('FindingListController', function ($scope, $http, $inte
   }).addTo($scope.map);
 
   $scope.layer = null;
-  $scope.yesterday = moment().subtract(1, 'days').toDate();
+  $scope.today = moment().toDate();
   if (localStorage.getItem('date')) {
     $scope.date = moment(localStorage.getItem('date')).toDate();
   } else {
-    $scope.date = $scope.yesterday;
+    $scope.date = $scope.today;
   }
 
   $scope.date_str = function() {

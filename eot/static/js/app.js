@@ -108,7 +108,11 @@ var api_endpoint = "";
 var eyesoftimeApp = angular.module('eyesoftimeApp', ['ui.bootstrap'])
   .config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[').endSymbol(']]');
+  })
+  .config(function($httpProvider) {
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   });
+
 eyesoftimeApp.controller('FindingListController', function ($scope, $http, $interval) {
   $scope.resetEvent = function () {
     $scope.newEvent = {

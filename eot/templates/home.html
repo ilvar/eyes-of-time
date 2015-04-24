@@ -29,7 +29,7 @@
 
                         <div class="row event-activity">
                             <ul class="unstyled">
-                                <li ng-repeat="event in events track by $index">
+                                <li ng-repeat="event in events track by event.pk">
                                     <div class="author">
                                         <img ng-src="[[event.avatar]]"/>
                                     </div>

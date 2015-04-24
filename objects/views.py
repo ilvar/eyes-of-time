@@ -22,6 +22,7 @@ home = HomeView.as_view()
 
 class EventsList(JsonView):
     template_name = 'event.html'
+    force_ajax = True
 
     def get_event_data(self, event):
         return {
@@ -50,7 +51,7 @@ class EventsList(JsonView):
         if not self.request.user.is_authenticated():
             return self.render({'error': 'Please log in before posting'})
 
-        form = EventForm(data=json.load(self.request), request=self.request)
+        form = EventForm(data=self.post_data(), request=self.request)
         if form.is_valid():
             event = form.save()
             return self.render(self.get_event_data(event))

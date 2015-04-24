@@ -4,8 +4,10 @@ from django.views.generic import TemplateView
 
 
 class JsonView(TemplateView):
+    force_ajax = False
+
     def render(self, data):
-        if self.request.is_ajax():
+        if self.request.is_ajax() or self.force_ajax:
             return JsonResponse(data, safe=False)
         else:
             return super(JsonView, self).render_to_response(data)

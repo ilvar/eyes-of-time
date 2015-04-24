@@ -1,0 +1,28 @@
+{% extends "app.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "css/eyes-of-space.css" %}">
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <h1>Top explorers</h1>
+
+        <div class="row">
+            {% for r in rating %}
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                    <div class="well">
+                        {% if r.avatar %}
+                            <img src="{{ r.avatar }}" class="img-circle pull-left" />
+                        {% endif %}
+                        <div class="user">
+                            {{ r.name }}<br />
+                            <strong>{{ r.rating }}</strong>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock main %}

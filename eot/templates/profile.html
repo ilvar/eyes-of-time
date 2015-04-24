@@ -1,0 +1,26 @@
+{% extends "app.html" %}
+{% load staticfiles %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "css/eyes-of-space.css" %}">
+{% endblock %}
+
+{% block main %}
+    <div class="container profile">
+        <h1>Profile</h1>
+
+        <div class="well">
+            <img src="{{ user.get_avatar }}" class="img-circle pull-left" />
+            <strong>Rating:</strong> {{ user.rating }}
+        </div>
+
+        <form class="form" method="POST" action=".">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Password</label>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Your name" value="{{ user.name|default:'' }}" />
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+{% endblock main %}

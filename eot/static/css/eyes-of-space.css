@@ -294,3 +294,19 @@ blockquote {
 table[role=grid] {
     width: 100%;
 }
+
+.well {
+    overflow: hidden;
+}
+
+.messages {
+  position: fixed;
+  right: 10px;
+  top: 65px;
+  width: 400px;
+  z-index: 5000;
+}
+
+.table .user {
+    width: 100%;
+}

@@ -42,7 +42,7 @@ class EventsList(JsonView):
         ds = self.kwargs.get('date')
         if ds:
             d = datetime.datetime.strptime(ds, '%d.%m.%Y').date()
-            events_qs = events_qs.filter(added__day=d.day, added__month=d.month, added__year=d.year)
+            events_qs = events_qs.filter(date__day=d.day, date__month=d.month, date__year=d.year)
 
         data = [self.get_event_data(event) for event in events_qs[:100]]
         return self.render(data)
